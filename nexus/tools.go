@@ -55,3 +55,15 @@ func intersection(a, b []int) (c []int) {
 	}
 	return
 }
+
+func makeBoolAddressable(value bool) *bool {
+	addressable := new(bool)
+	*addressable = value
+	return addressable
+}
+
+func makeIntAddressable(value int) *int {
+	addressable := new(int)
+	*addressable = value
+	return addressable
+}

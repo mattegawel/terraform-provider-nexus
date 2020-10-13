@@ -158,6 +158,16 @@ func dataSourceRepository() *schema.Resource {
 						"connection": {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
+									"enable_cookies": {
+										Description: "Whether to allow cookies to be stored and used",
+										Optional:    true,
+										Type:        schema.TypeBool,
+									},
+									"enable_circular_redirects": {
+										Description: "Enable circular redirects",
+										Optional:    true,
+										Type:        schema.TypeBool,
+									},
 									"retries": {
 										Description: "Total retries if the initial connection attempt suffers a timeout",
 										Optional:    true,
@@ -168,10 +178,16 @@ func dataSourceRepository() *schema.Resource {
 										Optional:    true,
 										Type:        schema.TypeInt,
 									},
+									"user_agent_suffix": {
+										Description: "Custom fragment to append to User-Agent header in HTTP requests",
+										Optional:    true,
+										Type:        schema.TypeString,
+									},
 								},
 							},
-							Type:     schema.TypeList,
+							MaxItems: 1,
 							Optional: true,
+							Type:     schema.TypeList,
 						},
 					},
 				},

@@ -94,6 +94,16 @@ resource "nexus_repository" "{{ .Name }}" {
 			{{ end -}}
 		}
 		{{ end -}}
+
+		{{ if .RepositoryHTTPClient.Connection -}}
+		connection {
+			enable_cookies            = "{{ .RepositoryHTTPClient.Connection.EnableCookies }}"
+			enable_circular_redirects = "{{ .RepositoryHTTPClient.Connection.EnableCircularRedirects }}"
+			retries = 					"{{ .RepositoryHTTPClient.Connection.Retries }}"
+			timeout = 					"{{ .RepositoryHTTPClient.Connection.Timeout }}"
+			user_agent_suffix = 		"{{ .RepositoryHTTPClient.Connection.UserAgentSuffix }}"
+		}
+		{{ end -}}
 	}
 {{ end -}}
 
@@ -225,6 +235,13 @@ func testAccResourceRepositoryProxy(format string) nexus.Repository {
 			},
 			AutoBlock: true,
 			Blocked:   false,
+			Connection: &nexus.RepositoryHTTPClientConnection{
+				EnableCircularRedirects: makeBoolAddressable(false),
+				EnableCookies:           makeBoolAddressable(false),
+				Retries:                 makeIntAddressable(3),
+				Timeout:                 makeIntAddressable(60),
+				UserAgentSuffix:         "",
+			},
 		},
 
 		RepositoryNegativeCache: &nexus.RepositoryNegativeCache{},
