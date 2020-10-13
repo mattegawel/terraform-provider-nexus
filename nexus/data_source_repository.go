@@ -185,7 +185,6 @@ func dataSourceRepository() *schema.Resource {
 									},
 								},
 							},
-							MaxItems: 1,
 							Optional: true,
 							Type:     schema.TypeList,
 						},
